@@ -77,11 +77,13 @@ router.get('/api/response.json', ctx => {
 
 router.post('/api/submit.json', ctx => {
   console.log(ctx.request.body);
-  const data = JSON.parse(ctx.request.body);
+  const data = ctx.request.body;
+  console.log(typeof data);
+  console.log(Object.prototype.toString.call(data));
   if (data.value) {
     commentList.push({
       name: 'arcthur',
-      content: decodeURI(ctx.req.body.value),
+      content: decodeURI(data.value),
       pubishTime: (new Date()).toISOString().split('T')[0]
     });
 

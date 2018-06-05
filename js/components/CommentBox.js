@@ -15,11 +15,13 @@ class CommentBox extends React.Component {
   }
 
   handleSubmitComment(value) {
-    fetch('/api/submit.json', {
+    console.log('Exect handleSubmit commnet:');
+    console.log(value);
+    fetch('/api/submit.json', { //TODO: fetch用法待整理
       method: 'POST',
       body:JSON.stringify({value: value}),
       headers: {
-        'Content-Type': 'application/json'
+        'content-type': 'application/json'
       }
     })
     .then(response => response.json())
@@ -27,6 +29,7 @@ class CommentBox extends React.Component {
       console.log('value:');
       console.log(value);
       if(value.ok) {
+        console.log('fetch response.json');
         this.setState({
           comments: fetch('/api/response.json')
         });
