@@ -19,9 +19,9 @@ class CommentBox extends React.Component {
     console.log(value);
     fetch('/api/submit.json', { //TODO: fetch用法待整理
       method: 'POST',
-      body:JSON.stringify({value: value}),
+      body:  JSON.stringify({value: value}), //待研究，这里body只能是json，必须用JSON.stringify处理
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json'//默认格式为multipart/form-data默认格式
       }
     })
     .then(response => response.json())

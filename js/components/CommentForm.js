@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 class CommentForm extends React.Component {
+  static propTypes = {
+    onSubmitComment: PropTypes.func
+  };
   constructor(props) {
     super(props);
     this.state = {
