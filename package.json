@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/wangyichen1064431086/react-my-example04-flux#readme",
   "dependencies": {
+    "flux": "^2.1.1",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0"

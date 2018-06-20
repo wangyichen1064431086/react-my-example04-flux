@@ -1,17 +1,18 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'events';//Node自带模块events
 import assign from 'object-assign';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import CommentConstants from '../constants/CommentConstants';
 
+let comment = [];
 const CommentStore = assign({}, EventEmitter.prototype, {//NOTE:使用assign方法将EventEmitter的功能混入CommentStore中，这样，store就拥有了事件触发和监听的功能
   getComment() {
     return comment;
   },
   emitChange() {
-    this.emit('change');
+    this.emit('change');//分发change事件
   },
   addChangeListener(callback) {
-    this.on('change', callback);
+    this.on('change', callback);//监听change事件
   },
   removeChangeListener(callback) {
     this.removeListener(callback);

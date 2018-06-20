@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import CommentActions from '../actions/CommentActions';
+
 /**
  * @description 得到一个对象，其上含有obj上除了prop以外的所有属性及相应属性值
  * @param {Object} obj 一个含有若干属性的对象
@@ -66,74 +68,31 @@ const Promised = (promiseProp, Wrapped) => class extends React.Component {
 }
 */
 
-function CommentList({comments}) {
-  return (
-    <ul className="comment-box">
-      {comments.map((entry, i) => (
-        <li key={`response-${i}`} className="comment-item">
-          <p className="comment-item-name">
-            {entry.name}
-          </p>
-          <p className="comment-item-content">
-            {entry.content}
-          </p>
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-class CommentListContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      error: null,
-      value: null
-    };
-  }
-
+class CommentList extends React.Component { //MARK: CommentList成为一个与数据请求无关的展示型组件
   componentDidMount() {
-    this.props.promise.then( 
-      // propmise属性为一个fetch请求
-      /**
-       fetch('/user.json')
-       .then(response => response.json())
-       .then(data => console.log('parsed json', data))
-       .catch(e => console.log(e))
-       */
-      response => response.json()
-    ).then(value => {
-        this.setState({
-          loading: false,
-          value
-        });
-        console.log(value);
-      }
-    ).catch(
-      error => this.setState({
-        loading: false,
-        error
-      })
+    CommentActions.loadComment();//MARK: Q: 怎样才能从服务器中获取已有的评论数据呢？ A: 在CommentAction中已经定义了从服务器获取数据的loadComment方法，直接在CommentList组件中调用该方法即可。
+  }
+  render() {
+    const list = this.props.comment;
+    return (
+      <ul className="comment-box">
+        {list.map((entry, i) => (
+          <li key={`response-${i}`} className="comment-item">
+            <p className="comment-item-name">
+              {entry.name}
+            </p>
+            <p className="comment-item-content">
+              {entry.content}
+            </p>
+          </li>
+        ))}
+      </ul>
     )
   }
-
-  render() {
-    if (this.state.loading) {
-      return <span>Loading...</span>
-    } else if (this.state.error !== null) {
-      return <span>Error:{this.state.error.message} </span>
-    } else {
-      const list = this.state.value.commentList;
-      console.log(list);
-      return (
-        <CommentList comments={list} />
-      );
-    }
-  }
 }
 
 
 
-export default CommentListContainer;
+
+export default CommentList;
 
