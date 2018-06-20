@@ -16,15 +16,10 @@ import CommentForm from './CommentForm';
 class CommentBox extends React.Component {
   constructor(props) {
     super(props);
-    /*
-    this.state = {
-      comments: fetch('/api/response.json')
-    };
-    this.handleSubmitComment = this.handleSubmitComment.bind(this);
-    */
+
 
     this.state = {
-      comment: CommentStore.getComment()
+      comment: CommentStore.getComment()//使用store暴露的getCommnent()方法获取数据
     }
 
     this._onChange = this._onChange.bind(this);
@@ -63,11 +58,11 @@ class CommentBox extends React.Component {
   }
 
   componentDidMount() {
-    CommentStore.addChangeListener(this._onChange);
+    CommentStore.addChangeListener(this._onChange); //绑定this._onChange监听器，即为change事件绑定监听器this._onChange
   }
 
   componentWillUnmount() {
-    CommentStore.removeChangeListener(this._onChange)
+    CommentStore.removeChangeListener(this._onChange)//解绑this._onChange监听器
   }
 
   render() {
